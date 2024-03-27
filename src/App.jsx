@@ -7,24 +7,6 @@ import Header from "./components/header/Header";
 function App() {
   const { state, onAction } = useAddToDo();
   const { todos } = state;
-  console.log(todos);
-
-  // const handleSubmit = () => {
-  //   setToDos((prev) => [
-  //     ...prev,
-  //     {
-  //       id: Math.random(),
-  //       label: input,
-  //     },
-  //   ]);
-  //   setInput("");
-  // };
-
-  // const handleEnter = (e) => {
-  //   if (e.key === "Enter") {
-  //     handleSubmit();
-  //   }
-  // };
 
   return (
     <Box

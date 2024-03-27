@@ -4,49 +4,59 @@ import { ACTION_TYPES } from "../actionTypes";
 export const useAddToDo = () => {
   const [todos, setToDos] = useState([]);
 
-  const handleSubmit = (input) => {
-    setToDos((prev) => [
-      ...prev,
-      {
-        id: Math.random(),
-        label: input,
-        isCompleted: false,
-        isSelected: false,
-      },
-    ]);
-  };
+  const handleSubmit = useCallback(
+    (input) => {
+      setToDos((prev) => [
+        ...prev,
+        {
+          id: Math.random(),
+          label: input,
+          isCompleted: false,
+          isSelected: false,
+        },
+      ]);
+    },
+    [todos]
+  );
 
-  const handleDelete = (id) => {
-    setToDos(todos.filter((todo) => todo.id !== id));
-  };
+  const handleDelete = useCallback(
+    (id) => {
+      setToDos(todos.filter((todo) => todo.id !== id));
+    },
+    [todos]
+  );
 
-  const handleToggleComplete = (id) => {
-    setToDos((prev) =>
-      prev.map((todo) =>
-        todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
-      )
-    );
-  };
+  const handleToggleComplete = useCallback(
+    (id) => {
+      setToDos((prev) =>
+        prev.map((todo) =>
+          todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
+        )
+      );
+    },
+    [todos]
+  );
 
-  const handleToggleSelect = (id) => {
+  const handleToggleSelect = useCallback((id) => {
     setToDos((prev) =>
       prev.map((todo) =>
         todo.id === id ? { ...todo, isSelected: !todo.isSelected } : todo
       )
     );
-  };
+  }, []);
 
-  const handleMarkComplete = () => {
+  const handleMarkComplete = useCallback(() => {
     setToDos((prev) =>
       prev.map((todo) =>
         todo.isSelected ? { ...todo, isCompleted: !todo.isCompleted } : todo
       )
     );
-  };
+  }, []);
 
-  const handleDeleteSelected = () => {
+  const handleDeleteSelected = useCallback(() => {
     setToDos((prev) => prev.filter((todo) => todo.isSelected === false));
-  };
+  }, []);
+
   const onAction = useCallback(
     (action) => {
       const { type, payload } = action;
